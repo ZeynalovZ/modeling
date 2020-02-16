@@ -102,7 +102,7 @@ namespace TableView
             for (double i = cnf.x1; i < cnf.x2; i += cnf.h)
             {
                 dataGridView1.Rows[tableBegin].Cells[(int)approximation + implictOffset].Value = yn;
-                yn1 = 1 / (2 * h) - Math.Sqrt(1 / (4 * h * h) - yn / h - Math.Pow(i, 2));
+                yn1 = 1 / (2 * h) - Math.Sqrt(1 / (4 * h * h) - yn / h - Math.Pow(i + h, 2));
                 
                 yn = yn1;
                 tableBegin++;
@@ -129,9 +129,9 @@ namespace TableView
         private void button1_Click(object sender, EventArgs e)
         {
             double x1 = 0;
-            double x2 = 2;
-            double h = 0.05;
-            uint approximation = 6;
+            double x2 = 3;
+            double h = 0.0001;
+            uint approximation = 4;
 
             int tableHeight = (int)((x2 - x1) / h);
             int tableWidth = 3 + (int)approximation;
