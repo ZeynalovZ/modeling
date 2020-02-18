@@ -59,8 +59,6 @@ namespace TableView
 
             for (uint i = 0; i <= approximation; i++)
             {
-                //Console.WriteLine("==========");
-                //Console.WriteLine("Current approximation is " + approximation);
                 resPoly = func(poly1, poly2);
                 resPoly.integrate();
                 resPoly.printPolynomial();
@@ -114,7 +112,7 @@ namespace TableView
         private void fillTable(uint approximationCount)
         {
             
-            dataGridView1.Rows[0].HeaderCell.Value = "X";
+            dataGridView1.Columns[0].HeaderCell.Value = "X";
             for (uint i = 0; i < approximationCount; i++)
             {
                 dataGridView1.Columns[(int)i].Width = 150;
@@ -129,9 +127,9 @@ namespace TableView
         private void button1_Click(object sender, EventArgs e)
         {
             double x1 = 0;
-            double x2 = 3;
-            double h = 0.0001;
-            uint approximation = 4;
+            double x2 = 4;
+            double h = 1e-3;
+            uint approximation = 9;
 
             int tableHeight = (int)((x2 - x1) / h);
             int tableWidth = 3 + (int)approximation;
