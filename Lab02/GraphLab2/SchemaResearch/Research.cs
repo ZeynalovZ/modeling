@@ -22,7 +22,10 @@ namespace SchemaResearch
 
         private static double functionF(double xn, double yn, double zn)
         {
-            double Rp = calculateRp();
+            double Rp = calculateRp(yn);
+            localConfig.list3.Add(xn, Rp);
+            localConfig.list4.Add(xn, yn * Rp);
+            //double Rp = 0;
             return ((zn - (localConfig.Rk + Rp) * yn) / localConfig.Lk) ;
         }
 
@@ -61,9 +64,74 @@ namespace SchemaResearch
             return localConfig;
         }
 
-        private static double calculateRp()
+        private static double calculateRp(double I)
         {
-            return 0;
+            double R = localConfig.R;
+            double Le = localConfig.L0;
+            double integral = integrateSimpson(I);
+            return localConfig.L0 / (2 * Math.PI * R * R * integral);
+        }
+
+        public static double getTz(double T0, double m, double r)
+        {
+            double z = r / localConfig.R;
+            return (localConfig.Tw - T0) * Math.Pow(z, m) + T0;
+        }
+        private static double siqmaFunc(double I, double z)
+        {
+            double m = interpolate(ItK, I, 0, 2);
+            double T0 = interpolate(ItK, I, 0, 1);
+            double Tz = getTz(T0, m, z);
+            double siqma = interpolate(Tsiqma, Tz, 0, 1);
+            return siqma;
+        }
+
+        private static double integrateSimpson(double I)
+        {
+            double test = I;
+            double n = 40;
+            double integrateBegin = 0;
+            double integrateEnd = 1;
+            double width = (integrateEnd - integrateBegin) / n;
+            double result = 0;
+            for (double step = 0; step < n; step++)
+            {
+                double x1 = integrateBegin + step * width;
+                double x2 = integrateBegin + (step + 1) * width;
+                result += (x2 - x1) / 6.0 * (siqmaFunc(I, x1) + 4.0 * siqmaFunc(I, 0.5 * (x1 + x2)) + siqmaFunc(I, x2));
+            }
+            return result;
+        }
+
+        
+
+        private static double interpolate(List<List<double>> table, double xValue, int xIndex, int yIndex)
+        {
+            bool interpolateIndexFound = false;
+            double x1 = 0, x2 = 0, y1 = 0, y2 = 0, yResult = 0;
+            for (int i = 0; i < table.Count - 1; i++)
+            {
+                if (table[i][xIndex] <= xValue && table[i + 1][xIndex] >= xValue)
+                {
+                    y1 = table[i][yIndex];
+                    y2 = table[i + 1][yIndex];
+                    x1 = table[i][xIndex];
+                    x2 = table[i + 1][xIndex];
+                    interpolateIndexFound = true;
+                }
+            }
+            if (interpolateIndexFound)
+            {
+                yResult = y1 + ((xValue - x1) / (x2 - x1)) * (y2 - y1);
+            }
+            else
+            {
+                if (xValue < table[0][xIndex])
+                    yResult = table[0][yIndex];
+                if (xValue > table[table.Count - 1][xIndex])
+                    yResult = table[table.Count - 1][yIndex];
+            }
+            return yResult;
         }
 
         private static void RungeKutta4(double xn, double yn, double zn, double hn, out double yn_1, out double zn_1 )

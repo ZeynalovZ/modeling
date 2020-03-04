@@ -79,7 +79,7 @@ namespace GraphLab2
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             PointPairList list = new PointPairList();
             for (double x = -50; x < 50; x += 0.01)
@@ -112,11 +112,11 @@ namespace GraphLab2
             xTitle = "t, микросекунды";
             yTitle = "I * Rp, A";
             tableName = "Доп График";
-            drawGraph1(zedGraph3, list, xTitle, yTitle, tableName);
+            drawGraph1(zedGraph3, config.list3, xTitle, yTitle, tableName);
             xTitle = "t, микросекунды";
             yTitle = "I * Rp, A";
             tableName = "Еще график";
-            drawGraph1(zedGraph4, list, xTitle, yTitle, tableName);
+            drawGraph1(zedGraph4, config.list4, xTitle, yTitle, tableName);
             
         }
 
