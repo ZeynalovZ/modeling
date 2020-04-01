@@ -115,7 +115,7 @@ namespace GraphLab2
             drawGraph1(zedGraph3, config.list3, xTitle, yTitle, tableName);
             xTitle = "t, микросекунды";
             yTitle = "I * Rp, A";
-            tableName = "Еще график";
+            tableName = "Напряжение на лампе";
             drawGraph1(zedGraph4, config.list4, xTitle, yTitle, tableName);
             
         }

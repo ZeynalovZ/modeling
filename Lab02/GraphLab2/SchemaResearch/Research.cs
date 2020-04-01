@@ -20,12 +20,14 @@ namespace SchemaResearch
         static List<List<double>> Tsiqma;
 
 
-        private static double functionF(double xn, double yn, double zn)
+        private static double functionF(double xn, double yn, double zn, int currentStepInRunge)
         {
             double Rp = calculateRp(yn);
-            localConfig.list3.Add(xn, Rp);
-            localConfig.list4.Add(xn, yn * Rp);
-            //double Rp = 0;
+            if (currentStepInRunge == 0)
+            {
+                localConfig.list3.Add(xn, Rp);
+                localConfig.list4.Add(xn, yn * Rp);
+            }
             return ((zn - (localConfig.Rk + Rp) * yn) / localConfig.Lk) ;
         }
 
@@ -136,16 +138,16 @@ namespace SchemaResearch
 
         private static void RungeKutta4(double xn, double yn, double zn, double hn, out double yn_1, out double zn_1 )
         {
-            double k1 = functionF(xn, yn, zn);
+            double k1 = functionF(xn, yn, zn, 0);
             double q1 = functionPHI(xn, yn, zn);
 
-            double k2 = functionF(xn + hn / 2, yn + k1 * hn / 2, zn + q1 * hn / 2);
+            double k2 = functionF(xn + hn / 2, yn + k1 * hn / 2, zn + q1 * hn / 2, 1);
             double q2 = functionPHI(xn + hn / 2, yn + k1 * hn / 2, zn + q1 * hn / 2);
 
-            double k3 = functionF(xn + hn / 2, yn + k2 * hn / 2, zn + q2 * hn / 2);
+            double k3 = functionF(xn + hn / 2, yn + k2 * hn / 2, zn + q2 * hn / 2, 1);
             double q3 = functionPHI(xn + hn / 2, yn + k2 * hn / 2, zn + q2 * hn / 2);
 
-            double k4 = functionF(xn + hn / 2, yn + k3 * hn, zn + q3 * hn);
+            double k4 = functionF(xn + hn / 2, yn + k3 * hn, zn + q3 * hn, 1);
             double q4 = functionPHI(xn + hn / 2, yn + k3 * hn, zn + q3 * hn);
 
             yn_1 = yn + hn * (k1 + 2 * k2 + 2 * k3 + k4) / 6;
@@ -155,9 +157,9 @@ namespace SchemaResearch
         private static double RungeKutta2(double xn, double yn, double zn, double hn)
         {
             double alpha = 1;
-            double yn_1 = yn + hn * ((1 - alpha) * functionF(xn, yn, zn) +
-                alpha * functionF(xn + hn / (2 * alpha), yn + hn / (2 * alpha), zn + hn / (2 * alpha)) *
-                functionF(xn, yn, zn));
+            double yn_1 = yn + hn * ((1 - alpha) * functionF(xn, yn, zn, 1) +
+                alpha * functionF(xn + hn / (2 * alpha), yn + hn / (2 * alpha), zn + hn / (2 * alpha), 1) *
+                functionF(xn, yn, zn, 1));
             double zn_1 = yn + hn * ((1 - alpha) * functionPHI(xn, yn, zn) +
                 alpha * functionPHI(xn + hn / (2 * alpha), yn + hn / (2 * alpha), zn + hn / (2 * alpha)) *
                 functionPHI(xn, yn, zn));
