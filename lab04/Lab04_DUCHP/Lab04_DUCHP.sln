@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab04_DUCHP", "Lab04_DUCHP\Lab04_DUCHP.csproj", "{BDB86A70-EF78-42C7-9266-B5FF4CB5EF34}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResearchSchema", "ResearchSchema\ResearchSchema.csproj", "{BC189A3F-2227-4591-9539-5FF8AA1E5026}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDB86A70-EF78-42C7-9266-B5FF4CB5EF34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDB86A70-EF78-42C7-9266-B5FF4CB5EF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDB86A70-EF78-42C7-9266-B5FF4CB5EF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDB86A70-EF78-42C7-9266-B5FF4CB5EF34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC189A3F-2227-4591-9539-5FF8AA1E5026}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC189A3F-2227-4591-9539-5FF8AA1E5026}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC189A3F-2227-4591-9539-5FF8AA1E5026}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC189A3F-2227-4591-9539-5FF8AA1E5026}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BB20A045-C70F-48B5-A25D-128F08E7F026}
+	EndGlobalSection
+EndGlobal
